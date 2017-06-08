@@ -51,17 +51,38 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
-    // MARK: - ARSCNViewDelegate
     
-/*
+    @IBAction func viewWasTapped(_ sender: UITapGestureRecognizer) {
+        print("view was tapped...")
+        
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -0.5
+        
+        if let frame = sceneView.session.currentFrame {
+            let transform = simd_mul(frame.camera.transform, translation)
+            let newAnchor = ARAnchor(transform: transform)
+            
+            sceneView.session.add(anchor: newAnchor)
+        }
+    }
+    
+    
+    // MARK: - ARSCNViewDelegatelkjlkj
+    
+    
+    
     // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
+        let node = SCNNode(geometry: buildSphere())
+        
+        node.position = SCNVector3(0, 0, -0.2)
+        
+        print("node was added....")
         return node
     }
-*/
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        sceneView.scene.rootNode.addChildNode(node)
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -76,5 +97,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
+    }
+    
+    func buildSphere() -> SCNSphere {
+        let sphere = SCNSphere(radius: 0.1)
+        let material = SCNMaterial()
+        
+        material.diffuse.contents = UIColor.red
+        material.specular.contents = UIColor(white: 0.6, alpha: 1.0)
+        material.shininess = 0.3
+        
+        sphere.materials = [material]
+        
+        return sphere
     }
 }
