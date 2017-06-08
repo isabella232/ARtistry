@@ -10,8 +10,9 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
-
+class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate {
+    var pressed = false
+    
     @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
@@ -52,9 +53,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    @IBAction func viewWasTapped(_ sender: UITapGestureRecognizer) {
-        print("view was tapped...")
-        
+    fileprivate func addAnchorInFrontOfCamera() {
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -0.5
         
@@ -66,10 +65,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    @IBAction func viewWasTapped(_ sender: UITapGestureRecognizer) {
+        print("view was tapped...")
+        
+        addAnchorInFrontOfCamera()
+    }
+    
     
     // MARK: - ARSCNViewDelegatelkjlkj
     
     
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if pressed {
+            addAnchorInFrontOfCamera()
+        }
+    }
     
     // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
@@ -100,7 +110,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func buildSphere() -> SCNSphere {
-        let sphere = SCNSphere(radius: 0.1)
+        let sphere = SCNSphere(radius: 0.025)
         let material = SCNMaterial()
         
         material.diffuse.contents = UIColor.red
@@ -110,5 +120,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sphere.materials = [material]
         
         return sphere
+    }
+    
+    @IBAction func longPressCallback(gr: UIGestureRecognizer) {
+        print("\(gr)")
+        
+        switch gr.state {
+        case .began:
+            self.pressed = true
+        case .ended:
+            self.pressed = false
+        case .changed:
+            print("changed...")
+            //no op
+        default:
+            self.pressed = false
+        }
     }
 }

@@ -19,6 +19,7 @@
                         <connections>
                             <outlet property="delegate" destination="BV1-FR-VrT" id="rfu-wg-d39"/>
                             <outletCollection property="gestureRecognizers" destination="4fG-if-dST" appends="YES" id="oRp-4M-vsF"/>
+                            <outletCollection property="gestureRecognizers" destination="68H-cm-Acw" appends="YES" id="sA1-Na-9lt"/>
                         </connections>
                     </arscnView>
                     <connections>
@@ -31,6 +32,11 @@
                         <action selector="viewWasTapped:" destination="BV1-FR-VrT" id="S6s-ba-16a"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000001" id="68H-cm-Acw">
+                    <connections>
+                        <action selector="longPressCallbackWithGr:" destination="BV1-FR-VrT" id="8sI-gw-Urt"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
         </scene>
     </scenes>
