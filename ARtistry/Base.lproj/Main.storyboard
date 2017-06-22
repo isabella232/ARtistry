@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,32 +13,50 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="ARtistry" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zhp-Wf-5WT"/>
+                        <viewControllerLayoutGuide type="bottom" id="JDY-sN-RSh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="es2-Iz-OCI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VH3-X1-Ziz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="eXo-5b-A3Z" appends="YES" id="OGb-kS-9sU"/>
+                                </connections>
+                            </arscnView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.025000000000000001" minValue="0.0050000000000000001" maxValue="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="np1-Nn-FpD">
+                                <rect key="frame" x="14" y="617" width="347" height="31"/>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outlet property="delegate" destination="BV1-FR-VrT" id="rfu-wg-d39"/>
-                            <outletCollection property="gestureRecognizers" destination="4fG-if-dST" appends="YES" id="oRp-4M-vsF"/>
-                            <outletCollection property="gestureRecognizers" destination="68H-cm-Acw" appends="YES" id="sA1-Na-9lt"/>
-                        </connections>
-                    </arscnView>
+                        <constraints>
+                            <constraint firstItem="np1-Nn-FpD" firstAttribute="leading" secondItem="es2-Iz-OCI" secondAttribute="leadingMargin" id="2WE-B1-QgI"/>
+                            <constraint firstItem="np1-Nn-FpD" firstAttribute="trailing" secondItem="es2-Iz-OCI" secondAttribute="trailingMargin" id="5KB-CR-UD9"/>
+                            <constraint firstItem="JDY-sN-RSh" firstAttribute="top" secondItem="VH3-X1-Ziz" secondAttribute="bottom" id="Aqq-HI-sZz"/>
+                            <constraint firstItem="VH3-X1-Ziz" firstAttribute="leading" secondItem="es2-Iz-OCI" secondAttribute="leading" id="Fl9-zy-gLo"/>
+                            <constraint firstItem="VH3-X1-Ziz" firstAttribute="top" secondItem="es2-Iz-OCI" secondAttribute="top" id="Xvd-Jk-Tdt"/>
+                            <constraint firstAttribute="trailing" secondItem="VH3-X1-Ziz" secondAttribute="trailing" id="hc3-PK-bpP"/>
+                            <constraint firstItem="JDY-sN-RSh" firstAttribute="top" secondItem="np1-Nn-FpD" secondAttribute="bottom" constant="20" id="wDJ-pJ-2m8"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="sceneView" destination="VH3-X1-Ziz" id="eQs-1H-Ih7"/>
+                        <outlet property="slider" destination="np1-Nn-FpD" id="k2e-In-hjy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="4fG-if-dST">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="eXo-5b-A3Z">
                     <connections>
-                        <action selector="viewWasTapped:" destination="BV1-FR-VrT" id="S6s-ba-16a"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000001" id="68H-cm-Acw">
-                    <connections>
-                        <action selector="longPressCallbackWithGr:" destination="BV1-FR-VrT" id="8sI-gw-Urt"/>
+                        <action selector="longPressCallbackWithGr:" destination="BV1-FR-VrT" id="srQ-eJ-YYx"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="37.600000000000001" y="72.413793103448285"/>
         </scene>
     </scenes>
 </document>

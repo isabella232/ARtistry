@@ -14,6 +14,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     var pressed = false
     
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet var slider: UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+        
         if pressed {
+            print("time")
             addAnchorInFrontOfCamera()
         }
     }
@@ -110,10 +114,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     }
     
     func buildSphere() -> SCNSphere {
-        let sphere = SCNSphere(radius: 0.025)
+        let sphere = SCNSphere(radius: CGFloat(slider.value))
         let material = SCNMaterial()
         
-        material.diffuse.contents = UIColor.red
+        material.diffuse.contents = UIColor.yellow
         material.specular.contents = UIColor(white: 0.6, alpha: 1.0)
         material.shininess = 0.3
         
